@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://b55ix48mkgo24"]
+
+[ext_resource type="Script" path="res://assets/scenes/Player.cs" id="1_nqtea"]
+[ext_resource type="Texture2D" uid="uid://cjhnrv5bxelk2" path="res://assets/art/penguin/penguin_idle0000.png" id="2_5frgw"]
+[ext_resource type="Texture2D" uid="uid://bmot8mwyaqmvu" path="res://assets/art/penguin/penguin_idle0001.png" id="3_3t6tj"]
+[ext_resource type="Texture2D" uid="uid://dvwqjbl3s2fmo" path="res://assets/art/penguin/penguin_idle0002.png" id="4_1aqhl"]
+[ext_resource type="Texture2D" uid="uid://d3ujhtcy4uarj" path="res://assets/art/penguin/penguin_idle0003.png" id="5_cmwxb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y4rym"]
+animations = [{
+"frames": [ExtResource("2_5frgw"), ExtResource("3_3t6tj"), ExtResource("4_1aqhl"), ExtResource("5_cmwxb")],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21qm5"]
+size = Vector2(17, 20)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_nqtea")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+frames = SubResource("SpriteFrames_y4rym")
+animation = &"idle"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 6)
+shape = SubResource("RectangleShape2D_21qm5")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -20)
+current = true
+zoom = Vector2(5, 5)
+process_callback = 0
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
