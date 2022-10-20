@@ -6,7 +6,7 @@ public partial class Player : CharacterBody2D
 	public const float SprintSpeed = 150.0f;
 	public const float MaxSpeed = 100.0f;
 	public const float JumpVelocity = -300.0f;
-	public const float Acceleration = 5.0f;
+	public const float Acceleration = 10.0f;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -32,30 +32,30 @@ public partial class Player : CharacterBody2D
 		{
 			if (Input.IsActionPressed("sprint"))
 			{
-                velocity.x += direction.x * Acceleration;
-                velocity.x = Mathf.Clamp(velocity.x, -SprintSpeed, SprintSpeed);
-            }
+				velocity.x += direction.x * Acceleration;
+				velocity.x = Mathf.Clamp(velocity.x, -SprintSpeed, SprintSpeed);
+			}
 			else
 			{
-                velocity.x = direction.x * MaxSpeed;
-            }
-        }
+				velocity.x = direction.x * MaxSpeed;
+			}
+		}
 		else
 		{
 			velocity.x = Mathf.MoveToward(Velocity.x, 0, Acceleration);
-        }
+		}
 
-        Velocity = velocity;
+		Velocity = velocity;
 		MoveAndSlide();
 		SetAnimation(Velocity);
 	}
 
 	public void SetAnimation(Vector2 velocity)
 	{
-        var animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		var animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		if (velocity.x != 0)
 		{
 			animatedSprite.FlipH = velocity.x < 0;
 		}
-    }
+	}
 }
