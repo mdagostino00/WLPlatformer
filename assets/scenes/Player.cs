@@ -28,8 +28,9 @@ public partial class Player : CharacterBody2D
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-		if (direction != Vector2.Zero)
+		if (direction.x != 0)
 		{
+			/*
 			if (Input.IsActionPressed("sprint"))
 			{
 				velocity.x += direction.x * Acceleration;
@@ -39,7 +40,10 @@ public partial class Player : CharacterBody2D
 			{
 				velocity.x = direction.x * MaxSpeed;
 			}
-		}
+			*/
+			velocity.x += direction.x * Acceleration;
+            velocity.x = Mathf.Clamp(velocity.x, -MaxSpeed, MaxSpeed);
+        }
 		else
 		{
 			velocity.x = Mathf.MoveToward(Velocity.x, 0, Acceleration);
@@ -52,10 +56,23 @@ public partial class Player : CharacterBody2D
 
 	public void SetAnimation(Vector2 velocity)
 	{
-		var animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		if (velocity.x != 0)
+		var animatedSprite = GetNode<AnimatedSprite2D>("PlayerSprite");
+		
+		if (IsOnFloor() && velocity.x != 0)
 		{
-			animatedSprite.FlipH = velocity.x < 0;
+            animatedSprite.Play("walking");
+            animatedSprite.FlipH = velocity.x < 0;
+        }
+		else if (!IsOnFloor())
+		{
+			if (velocity.y < 0)
+				animatedSprite.Play("jumping_up");
+			else
+				animatedSprite.Play("jumping_down");
+		}
+		else
+		{
+			animatedSprite.Play("idle");
 		}
 	}
 }

@@ -1,10 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://b55ix48mkgo24"]
+[gd_scene load_steps=15 format=3 uid="uid://b55ix48mkgo24"]
 
 [ext_resource type="Script" path="res://assets/scenes/Player.cs" id="1_nqtea"]
 [ext_resource type="Texture2D" uid="uid://cjhnrv5bxelk2" path="res://assets/art/penguin/penguin_idle0000.png" id="2_5frgw"]
 [ext_resource type="Texture2D" uid="uid://bmot8mwyaqmvu" path="res://assets/art/penguin/penguin_idle0001.png" id="3_3t6tj"]
 [ext_resource type="Texture2D" uid="uid://dvwqjbl3s2fmo" path="res://assets/art/penguin/penguin_idle0002.png" id="4_1aqhl"]
 [ext_resource type="Texture2D" uid="uid://d3ujhtcy4uarj" path="res://assets/art/penguin/penguin_idle0003.png" id="5_cmwxb"]
+[ext_resource type="Texture2D" uid="uid://ckv28ha0ogq4v" path="res://assets/art/penguin/penguin_walk0000.png" id="6_mgib0"]
+[ext_resource type="Texture2D" uid="uid://bmb5r6j2n0dh0" path="res://assets/art/penguin/penguin_walk0001.png" id="7_rr8ee"]
+[ext_resource type="Texture2D" uid="uid://b0282wkab8741" path="res://assets/art/penguin/penguin_walk0002.png" id="8_mrklc"]
+[ext_resource type="Texture2D" uid="uid://dxmd7ujgnb7ie" path="res://assets/art/penguin/penguin_walk0003.png" id="9_gf0y7"]
+[ext_resource type="Texture2D" uid="uid://cviln4i8x4gn5" path="res://assets/art/penguin/penguin_walk0004.png" id="10_ick24"]
+[ext_resource type="Texture2D" uid="uid://d2v4v2jdmeloh" path="res://assets/art/penguin/penguin_walk0005.png" id="11_jbknt"]
+[ext_resource type="Script" path="res://assets/scenes/PlayerSprite.cs" id="12_whuwp"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y4rym"]
 animations = [{
@@ -12,22 +19,39 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 3.0
+}, {
+"frames": [ExtResource("10_ick24")],
+"loop": true,
+"name": &"jumping_down",
+"speed": 5.0
+}, {
+"frames": [ExtResource("9_gf0y7")],
+"loop": false,
+"name": &"jumping_up",
+"speed": 12.0
+}, {
+"frames": [ExtResource("6_mgib0"), ExtResource("7_rr8ee"), ExtResource("8_mrklc"), ExtResource("9_gf0y7"), ExtResource("10_ick24"), ExtResource("11_jbknt")],
+"loop": true,
+"name": &"walking",
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21qm5"]
-size = Vector2(17, 20)
+size = Vector2(18, 23)
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 63
 script = ExtResource("1_nqtea")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 frames = SubResource("SpriteFrames_y4rym")
-animation = &"idle"
+animation = &"walking"
 playing = true
+script = ExtResource("12_whuwp")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 6)
+[node name="PlayerCollision2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_21qm5")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -37,5 +61,3 @@ zoom = Vector2(5, 5)
 process_callback = 0
 limit_smoothed = true
 position_smoothing_enabled = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

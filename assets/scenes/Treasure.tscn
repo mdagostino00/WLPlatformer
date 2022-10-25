@@ -1,0 +1,69 @@
+[gd_scene load_steps=15 format=3 uid="uid://biwr5khv5aeve"]
+
+[ext_resource type="Script" path="res://assets/scenes/Treasure.cs" id="1_d2e0o"]
+[ext_resource type="Texture2D" uid="uid://grg2clbcqghr" path="res://assets/art/peaceful_nightfield/rotating_coin.png" id="1_y4037"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w05ty"]
+atlas = ExtResource("1_y4037")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ig3to"]
+atlas = ExtResource("1_y4037")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3uq65"]
+atlas = ExtResource("1_y4037")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0p46x"]
+atlas = ExtResource("1_y4037")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06b73"]
+atlas = ExtResource("1_y4037")
+region = Rect2(32, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4aak"]
+atlas = ExtResource("1_y4037")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1awrr"]
+atlas = ExtResource("1_y4037")
+region = Rect2(48, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a55co"]
+atlas = ExtResource("1_y4037")
+region = Rect2(56, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3juc"]
+atlas = ExtResource("1_y4037")
+region = Rect2(64, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_davhl"]
+atlas = ExtResource("1_y4037")
+region = Rect2(72, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v5odu"]
+animations = [{
+"frames": [SubResource("AtlasTexture_w05ty"), SubResource("AtlasTexture_ig3to"), SubResource("AtlasTexture_3uq65"), SubResource("AtlasTexture_0p46x"), SubResource("AtlasTexture_06b73"), SubResource("AtlasTexture_l4aak"), SubResource("AtlasTexture_1awrr"), SubResource("AtlasTexture_a55co"), SubResource("AtlasTexture_w3juc"), SubResource("AtlasTexture_davhl")],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wy8st"]
+size = Vector2(6, 6)
+
+[node name="Treasure" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_d2e0o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+frames = SubResource("SpriteFrames_v5odu")
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wy8st")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
