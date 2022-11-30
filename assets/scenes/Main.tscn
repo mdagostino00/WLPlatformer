@@ -11,7 +11,7 @@ size = Vector2(4175.88, 492)
 [node name="Level1" type="Node"]
 
 [node name="Player" parent="." instance=ExtResource("1_uxm6a")]
-position = Vector2(129, -17)
+position = Vector2(25, -16)
 
 [node name="Treasure" parent="." instance=ExtResource("3_lxqbc")]
 position = Vector2(263, -38)
