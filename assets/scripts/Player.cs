@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using WarioLandPlatformer.PlayerFSM;
 
 public partial class Player : CharacterBody2D
 {
@@ -8,50 +9,29 @@ public partial class Player : CharacterBody2D
 	public const float JumpVelocity = -350.0f;
 	public const float Acceleration = 10.0f;
 
+	public PlayerFSM? playerFSM = null;
+
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
+	// initialization for the player's finite state machine object
+	public Player()
+	{
+		// first, create a new instance of the FSM object
+		playerFSM = new PlayerFSM();
+
+		// next, add all of our coded states into the FSM
+		playerFSM.Add(new PlayerFSMState_MOVEMENT(this));
+        playerFSM.Add(new PlayerFSMState_ATTACK(this));
+
+		playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
+    }
+
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 velocity = Velocity;
-
-		// Add the gravity.
-		if (!IsOnFloor())
-			velocity.y += gravity * (float)delta;
-
-		// Handle Jump.
-		if (Input.IsActionJustPressed("jump") && IsOnFloor())
-			velocity.y = JumpVelocity;
-		if (!Input.IsActionPressed("jump") && velocity.y < -50.0f && velocity.y > -250.0f)
-			velocity.y = -50.0f;
-
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-		if (direction.x != 0)
-		{
-
-			if (Input.IsActionPressed("sprint"))
-			{
-				velocity.x += direction.x * Acceleration;
-				velocity.x = Mathf.Clamp(velocity.x, -SprintSpeed, SprintSpeed);
-			}
-			else
-			{
-                velocity.x += direction.x * Acceleration;
-                velocity.x = Mathf.Clamp(velocity.x, -MaxSpeed, MaxSpeed);
-            }
-			
-        }
-		else
-		{
-			velocity.x = Mathf.MoveToward(Velocity.x, 0, Acceleration);
-		}
-
-		Velocity = velocity;
-		MoveAndSlide();
-		SetAnimation(Velocity);
-	}
+        playerFSM._PhysicsProcess(delta);
+        MoveAndSlide();
+    }
 
 	public void SetAnimation(Vector2 velocity)
 	{
@@ -60,7 +40,6 @@ public partial class Player : CharacterBody2D
 
         {
             animatedSprite.Play("walking");
-            animatedSprite.FlipH = velocity.x < 0;
         }
 		else if (!IsOnFloor())
 		{
@@ -68,16 +47,20 @@ public partial class Player : CharacterBody2D
 				animatedSprite.Play("jumping_up");
 			else
 				animatedSprite.Play("jumping_down");
-            animatedSprite.FlipH = velocity.x < 0;
         }
 		else
 		{
 			animatedSprite.Play("idle");
 		}
+
+		if (velocity.x != 0)
+		{
+            animatedSprite.FlipH = velocity.x < 0;
+        }
 	}
 
 	public void OnFallzoneBodyEntered(Node body)
 	{
-		GetTree().ChangeSceneToPacked((PackedScene)ResourceLoader.Load("res://assets/scenes/Main.tscn"));
+        GetTree().ChangeSceneToPacked((PackedScene)ResourceLoader.Load("res://assets/scenes/Main.tscn"));
 	}
 }
