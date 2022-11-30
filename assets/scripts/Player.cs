@@ -75,4 +75,9 @@ public partial class Player : CharacterBody2D
 			animatedSprite.Play("idle");
 		}
 	}
+
+	public void OnFallzoneBodyEntered(Node body)
+	{
+		GetTree().ChangeSceneToPacked((PackedScene)ResourceLoader.Load("res://assets/scenes/Main.tscn"));
+	}
 }
