@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://ceu4fj7m4445g"]
+
+[node name="Fallzone" type="Area2D"]

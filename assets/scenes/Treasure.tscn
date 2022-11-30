@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://biwr5khv5aeve"]
 
-[ext_resource type="Script" path="res://assets/scenes/Treasure.cs" id="1_d2e0o"]
+[ext_resource type="Script" path="res://assets/scripts/Treasure.cs" id="1_ie33w"]
 [ext_resource type="Texture2D" uid="uid://grg2clbcqghr" path="res://assets/art/peaceful_nightfield/rotating_coin.png" id="1_y4037"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w05ty"]
@@ -56,7 +56,7 @@ size = Vector2(6, 6)
 
 [node name="Treasure" type="Area2D"]
 collision_layer = 0
-script = ExtResource("1_d2e0o")
+script = ExtResource("1_ie33w")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
