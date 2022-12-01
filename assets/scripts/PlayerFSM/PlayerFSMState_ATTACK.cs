@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,9 +24,13 @@ namespace WarioLandPlatformer.PlayerFSM
             base.Exit();
         }
 
-        public override void _Process()
+        public override void _Process(double delta)
         {
-            base._Process();
+            _player._animationPlayer.Play("attack");
+            if (!Input.IsActionPressed("attack"))
+                _player.playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
+
+            base._Process(delta);
         }
 
         public override void _PhysicsProcess(double delta)

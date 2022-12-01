@@ -34,9 +34,9 @@ namespace WarioLandPlatformer.PlayerFSM
             base.Exit();
         }
 
-        public override void _Process()
+        public override void _Process(double delta)
         {
-            base._Process();
+            base._Process(delta);
         }
         public override void _PhysicsProcess(double delta)
         {

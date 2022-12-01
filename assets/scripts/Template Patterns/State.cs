@@ -121,7 +121,7 @@ namespace WarioLandPlatformer.Template_Patterns
         /// <summary>
         /// <c>Update</c>Unity's update function
         /// </summary>
-        public virtual void _Process()
+        public virtual void _Process(double delta)
         {
             On_Process?.Invoke();
         }

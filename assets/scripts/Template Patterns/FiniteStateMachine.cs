@@ -106,11 +106,11 @@ namespace WarioLandPlatformer.Template_Patterns
         /// <summary>
         /// <c><Update/c>calls the current state's Update function
         /// </summary>
-        public void _Process()
+        public void _Process(double delta)
         {
             if (m_currentState != null)
             {
-                m_currentState._Process();
+                m_currentState._Process(delta);
             }
         }
 

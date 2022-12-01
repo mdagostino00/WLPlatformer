@@ -24,9 +24,43 @@ namespace WarioLandPlatformer.PlayerFSM
             base.Exit();
         }
 
-        public override void _Process()
+        public override void _Process(double delta)
         {
-            base._Process();
+            Vector2 velocity = _player.Velocity;
+            var animatedSprite = _player.GetNode<Sprite2D>("PlayerSpriteSheet");
+
+            if (_player.IsOnFloor() && velocity.x != 0)
+
+            {
+                _player._animationPlayer.Play("walking");
+            }
+            else if (!_player.IsOnFloor())
+            {
+                if (velocity.y < 0)
+                    _player._animationPlayer.Play("jumping_up");
+                else
+                    _player._animationPlayer.Play("jumping_down");
+            }
+            else
+            {
+                //_player._animationPlayer.Stop();
+                _player._animationPlayer.Play("idle");
+            }
+
+
+            if (velocity.x != 0)
+            {
+                if (animatedSprite.FlipH = velocity.x < 0)
+                {
+                    animatedSprite.Offset = new Vector2(-32.0f, 0.0f);
+                }
+                else
+                {
+                    animatedSprite.Offset = new Vector2(0.0f, 0.0f);
+                }
+            }
+
+            base._Process(delta);
         }
 
         public override void _PhysicsProcess(double delta)
@@ -51,6 +85,11 @@ namespace WarioLandPlatformer.PlayerFSM
                 "move_up", 
                 "move_down"
                 );
+
+            if (Input.IsActionJustPressed("attack"))
+            {
+                _player.playerFSM.SetCurrentState(PlayerFSMStateType.ATTACK);
+            }
 
             if (direction.x != 0)
             {
@@ -79,7 +118,7 @@ namespace WarioLandPlatformer.PlayerFSM
             }
 
             _player.Velocity = velocity;
-            _player.SetAnimation(_player.Velocity);
+            //_player.SetAnimation(_player.Velocity);
             //base._PhysicsProcess(delta);
         }
     }

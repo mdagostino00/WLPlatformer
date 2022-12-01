@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using WarioLandPlatformer;
 using WarioLandPlatformer.PlayerFSM;
 
 public partial class Player : CharacterBody2D
@@ -9,7 +10,9 @@ public partial class Player : CharacterBody2D
 	public const float JumpVelocity = -350.0f;
 	public const float Acceleration = 10.0f;
 
-	public PlayerFSM? playerFSM = null;
+    public AnimationPlayer _animationPlayer;
+    public PlayerFSM? playerFSM = null;
+	public PlayerObserver? playerObserver = null;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -25,7 +28,19 @@ public partial class Player : CharacterBody2D
         playerFSM.Add(new PlayerFSMState_ATTACK(this));
 
 		playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
+
+		playerObserver = new PlayerObserver();
     }
+
+	public override void _Ready()
+	{
+        _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+    }
+
+	public override void _Process(double delta)
+	{
+		playerFSM._Process(delta);
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -35,32 +50,45 @@ public partial class Player : CharacterBody2D
 
 	public void SetAnimation(Vector2 velocity)
 	{
-		var animatedSprite = GetNode<AnimatedSprite2D>("PlayerSprite");
+		var animatedSprite = GetNode<Sprite2D>("PlayerSpriteSheet");
 		if (IsOnFloor() && velocity.x != 0)
 
         {
-            animatedSprite.Play("walking");
+            _animationPlayer.Play("walking");
         }
 		else if (!IsOnFloor())
 		{
 			if (velocity.y < 0)
-				animatedSprite.Play("jumping_up");
+                _animationPlayer.Play("jumping_up");
 			else
-				animatedSprite.Play("jumping_down");
+                _animationPlayer.Play("jumping_down");
         }
 		else
 		{
-			animatedSprite.Play("idle");
+            _animationPlayer.Stop();
+            _animationPlayer.Play("idle");
 		}
 
 		if (velocity.x != 0)
 		{
-            animatedSprite.FlipH = velocity.x < 0;
+			if (animatedSprite.FlipH = velocity.x < 0)
+			{
+                animatedSprite.Offset = new Vector2(-32.0f , 0.0f);
+			}else
+			{
+                animatedSprite.Offset = new Vector2(0.0f, 0.0f);
+            }
         }
 	}
 
 	public void OnFallzoneBodyEntered(Node body)
 	{
         GetTree().ChangeSceneToPacked((PackedScene)ResourceLoader.Load("res://assets/scenes/Main.tscn"));
+	}
+
+
+	public void OnAnimationPlayerAnimationFinished()
+	{
+		playerObserver.OnAnimationPlayerAnimationFinished();
 	}
 }
