@@ -16,6 +16,7 @@ namespace WarioLandPlatformer.PlayerFSM
 
         public override void Enter()
         {
+            //_player._animationPlayer.Play("idle");
             base.Enter();
         }
 
@@ -72,7 +73,7 @@ namespace WarioLandPlatformer.PlayerFSM
                 velocity.y += _player.gravity * (float)delta;
 
             // Handle Jump.
-            if (Input.IsActionJustPressed("jump") && _player.IsOnFloor())
+            if (Input.IsActionPressed("jump") && _player.IsOnFloor())
                 velocity.y = Player.JumpVelocity;
             if (!Input.IsActionPressed("jump") && velocity.y < -50.0f && velocity.y > -250.0f)
                 velocity.y = -50.0f;
@@ -94,9 +95,16 @@ namespace WarioLandPlatformer.PlayerFSM
             if (direction.x != 0)
             {
                 // if the player is holding the sprint button, add sprint speed
-                if (Input.IsActionPressed("sprint"))
+                if (Input.IsActionPressed("sprint") && _player.IsOnFloor())
                 {
-                    velocity.x += direction.x * Player.Acceleration;
+                    if (velocity.x > 100.0f)
+                    {
+                        velocity.x += direction.x * Player.Acceleration / 4;
+                    }
+                    else
+                    {
+                        velocity.x += direction.x * Player.Acceleration;
+                    }
                     velocity.x = Mathf.Clamp(velocity.x, 
                         -Player.SprintSpeed, 
                         Player.SprintSpeed

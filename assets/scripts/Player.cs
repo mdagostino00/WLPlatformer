@@ -11,8 +11,9 @@ public partial class Player : CharacterBody2D
 	public const float Acceleration = 10.0f;
 
     public AnimationPlayer _animationPlayer;
-    public PlayerFSM? playerFSM = null;
-	public PlayerObserver? playerObserver = null;
+    public PlayerFSM playerFSM = null;
+	public PlayerObserver playerObserver = null;
+	public bool animationActable { get; set; }
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -54,7 +55,14 @@ public partial class Player : CharacterBody2D
 		if (IsOnFloor() && velocity.x != 0)
 
         {
-            _animationPlayer.Play("walking");
+			if (velocity.x >= MaxSpeed)
+			{
+                _animationPlayer.Play("running");
+            }
+			else
+			{
+				_animationPlayer.Play("walking");
+			}
         }
 		else if (!IsOnFloor())
 		{
@@ -65,7 +73,7 @@ public partial class Player : CharacterBody2D
         }
 		else
 		{
-            _animationPlayer.Stop();
+            //_animationPlayer.Stop();
             _animationPlayer.Play("idle");
 		}
 
@@ -87,8 +95,22 @@ public partial class Player : CharacterBody2D
 	}
 
 
-	public void OnAnimationPlayerAnimationFinished()
+	public void OnAnimationPlayerAnimationFinished(string anim_name)
 	{
-		playerObserver.OnAnimationPlayerAnimationFinished();
+		if (anim_name == "attack")
+		{
+            playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
+        }
+		//playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
+	}
+
+    public void SetAnimationActable()
+    {
+		animationActable = true;
+    }
+
+	public void ActivateHitbox()
+	{
+
 	}
 }
