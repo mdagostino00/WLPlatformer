@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dgi33fbi087ml"]
 
-[ext_resource type="PackedScene" uid="uid://byu04smynu1f" path="res://assets/scenes/Enemy.tscn" id="1_78jvr"]
+[ext_resource type="PackedScene" uid="uid://duo082jldr2u1" path="res://assets/scenes/Enemy.tscn" id="1_78jvr"]
 [ext_resource type="Texture2D" uid="uid://b0282wkab8741" path="res://assets/art/penguin/penguin_walk0002.png" id="2_q6eit"]
 
 [node name="Goomba" instance=ExtResource("1_78jvr")]

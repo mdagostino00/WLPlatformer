@@ -55,14 +55,7 @@ public partial class Player : CharacterBody2D
 		if (IsOnFloor() && velocity.x != 0)
 
         {
-			if (velocity.x >= MaxSpeed)
-			{
-                _animationPlayer.Play("running");
-            }
-			else
-			{
-				_animationPlayer.Play("walking");
-			}
+			_animationPlayer.Play("walking");
         }
 		else if (!IsOnFloor())
 		{
