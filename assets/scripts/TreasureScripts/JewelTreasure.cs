@@ -15,6 +15,7 @@ public partial class JewelTreasure : Treasure
     public override void OnBodyEntered(Player body)
     {
         animationPlayer.Play("bounce");
+        SetCollisionMaskValue(1, false); //disable collision box
         player = body;
     }
 
