@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bo17rp7drltup"]
 
 [ext_resource type="PackedScene" uid="uid://b55ix48mkgo24" path="res://assets/scenes/Player.tscn" id="1_uxm6a"]
-[ext_resource type="PackedScene" uid="uid://db1ebdpnodacb" path="res://assets/scenes/Tilesets/TreasureTileset.tscn" id="2_i0y4h"]
+[ext_resource type="PackedScene" uid="uid://2urmufhnfos8" path="res://assets/scenes/Tilesets/TreasureTileset.tscn" id="2_i0y4h"]
 [ext_resource type="PackedScene" uid="uid://c0pblbrtn432n" path="res://assets/scenes/Tilesets/ForestTileset.tscn" id="3_xex52"]
 [ext_resource type="PackedScene" uid="uid://dutt72r205wij" path="res://assets/scenes/Backgrounds/Level1Background.tscn" id="4_ouv5u"]
 
@@ -33,10 +33,3 @@ scroll_offset = Vector2(0, -120)
 scroll_base_offset = Vector2(0, 100)
 
 [connection signal="body_entered" from="Fallzone" to="Player" method="OnFallzoneBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Treasure@42266" to="TileMap/@Treasure@42266" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Treasure@42267" to="TileMap/@Treasure@42267" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Treasure@42268" to="TileMap/@Treasure@42268" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Treasure@42269" to="TileMap/@Treasure@42269" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Treasure@42270" to="TileMap/@Treasure@42270" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Treasure@42271" to="TileMap/@Treasure@42271" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@JewelTreasure@42272" to="TileMap/@JewelTreasure@42272" method="OnBodyEntered"]

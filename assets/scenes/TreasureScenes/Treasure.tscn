@@ -1,46 +1,46 @@
-[gd_scene load_steps=15 format=3 uid="uid://biwr5khv5aeve"]
+[gd_scene load_steps=15 format=3 uid="uid://d0ai6njaee2oq"]
 
-[ext_resource type="Script" path="res://assets/scripts/Treasure.cs" id="1_ie33w"]
-[ext_resource type="Texture2D" uid="uid://grg2clbcqghr" path="res://assets/art/peaceful_nightfield/rotating_coin.png" id="1_y4037"]
+[ext_resource type="Script" path="res://assets/scripts/TreasureScripts/Treasure.cs" id="1_q1dkf"]
+[ext_resource type="Texture2D" uid="uid://grg2clbcqghr" path="res://assets/art/peaceful_nightfield/rotating_coin.png" id="2_1c4qr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w05ty"]
-atlas = ExtResource("1_y4037")
+atlas = ExtResource("2_1c4qr")
 region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ig3to"]
-atlas = ExtResource("1_y4037")
+atlas = ExtResource("2_1c4qr")
 region = Rect2(8, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3uq65"]
-atlas = ExtResource("1_y4037")
+atlas = ExtResource("2_1c4qr")
 region = Rect2(16, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0p46x"]
-atlas = ExtResource("1_y4037")
+atlas = ExtResource("2_1c4qr")
 region = Rect2(24, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_06b73"]
-atlas = ExtResource("1_y4037")
+atlas = ExtResource("2_1c4qr")
 region = Rect2(32, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l4aak"]
-atlas = ExtResource("1_y4037")
+atlas = ExtResource("2_1c4qr")
 region = Rect2(40, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1awrr"]
-atlas = ExtResource("1_y4037")
+atlas = ExtResource("2_1c4qr")
 region = Rect2(48, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a55co"]
-atlas = ExtResource("1_y4037")
+atlas = ExtResource("2_1c4qr")
 region = Rect2(56, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w3juc"]
-atlas = ExtResource("1_y4037")
+atlas = ExtResource("2_1c4qr")
 region = Rect2(64, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_davhl"]
-atlas = ExtResource("1_y4037")
+atlas = ExtResource("2_1c4qr")
 region = Rect2(72, 0, 8, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v5odu"]
@@ -52,11 +52,11 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wy8st"]
-size = Vector2(6, 6)
+size = Vector2(10, 10)
 
 [node name="Treasure" type="Area2D"]
 collision_layer = 0
-script = ExtResource("1_ie33w")
+script = ExtResource("1_q1dkf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

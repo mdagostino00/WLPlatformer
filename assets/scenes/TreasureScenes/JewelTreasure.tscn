@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://dcj461eubrr4y"]
 
-[ext_resource type="Script" path="res://assets/scripts/JewelTreasure.cs" id="1_27o4y"]
-[ext_resource type="Texture2D" uid="uid://b1ok8l2k1uiyn" path="res://assets/art/artworking/Kyrise's 16x16 RPG Icon Pack - V1.3/spritesheet/spritesheet_16x16.png" id="2_ra0he"]
+[ext_resource type="Script" path="res://assets/scripts/TreasureScripts/JewelTreasure.cs" id="1_wc8aq"]
+[ext_resource type="Texture2D" uid="uid://b1ok8l2k1uiyn" path="res://assets/art/artworking/Kyrise's 16x16 RPG Icon Pack - V1.3/spritesheet/spritesheet_16x16.png" id="2_w174e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m32v2"]
-size = Vector2(16, 16)
+size = Vector2(18, 18)
 
 [sub_resource type="Animation" id="Animation_afnub"]
 length = 0.001
@@ -64,12 +64,12 @@ _data = {
 }
 
 [node name="JewelTreasure" type="Area2D"]
-script = ExtResource("1_27o4y")
+script = ExtResource("1_wc8aq")
 TREASURE_VALUE = 2000
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
-texture = ExtResource("2_ra0he")
+texture = ExtResource("2_w174e")
 hframes = 16
 vframes = 22
 frame = 126
