@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cngjvvg11mv8o"]
+
+[ext_resource type="PackedScene" uid="uid://duo082jldr2u1" path="res://assets/scenes/EnemyScenes/Enemy.tscn" id="1_vpl7f"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_d43de"]
+scenes/1/scene = ExtResource("1_vpl7f")
+
+[sub_resource type="TileSet" id="TileSet_nqot4"]
+sources/0 = SubResource("TileSetScenesCollectionSource_d43de")
+
+[node name="EnemyTileMap" type="TileMap"]
+position = Vector2(0, -8)
+tile_set = SubResource("TileSet_nqot4")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 65536)

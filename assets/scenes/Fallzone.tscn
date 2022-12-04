@@ -4,6 +4,7 @@
 size = Vector2(1167, 346)
 
 [node name="Fallzone" type="Area2D"]
+collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ku0s7")

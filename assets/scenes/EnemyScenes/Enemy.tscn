@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=3 uid="uid://duo082jldr2u1"]
+
+[ext_resource type="Script" path="res://assets/scripts/Enemy.cs" id="1_68yit"]
+[ext_resource type="Texture2D" uid="uid://cx2noabog3pfi" path="res://assets/art/enemy/enemy_slime.png" id="2_tdd7f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hha7l"]
+size = Vector2(16, 15)
+
+[sub_resource type="Animation" id="Animation_5i6mq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_1tgqb"]
+resource_name = "kill"
+length = 0.666667
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_bsh0k"]
+resource_name = "walk"
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gn1bi"]
+_data = {
+"RESET": SubResource("Animation_5i6mq"),
+"kill": SubResource("Animation_1tgqb"),
+"walk": SubResource("Animation_bsh0k")
+}
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 19
+script = ExtResource("1_68yit")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_hha7l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("2_tdd7f")
+vframes = 4
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gn1bi")
+}

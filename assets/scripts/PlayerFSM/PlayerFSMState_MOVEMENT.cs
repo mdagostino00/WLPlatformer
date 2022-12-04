@@ -96,7 +96,8 @@ namespace WarioLandPlatformer.PlayerFSM
             if (direction.x != 0)
             {
                 // if the player is holding the sprint button, add sprint speed
-                if (Input.IsActionPressed("sprint") && _player.IsOnFloor())
+                // && _player.IsOnFloor()
+                if (Input.IsActionPressed("sprint"))
                 {
                     if (velocity.x > 100.0f)
                     {

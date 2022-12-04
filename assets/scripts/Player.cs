@@ -93,7 +93,7 @@ public partial class Player : CharacterBody2D
         }
 	}
 
-	public void OnFallzoneBodyEntered(Node body)
+	public void OnFallzoneBodyEntered(Player body)
 	{
         GetTree().ChangeSceneToPacked((PackedScene)ResourceLoader.Load("res://assets/scenes/Main.tscn"));
 	}

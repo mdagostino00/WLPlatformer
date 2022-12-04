@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bo17rp7drltup"]
+[gd_scene load_steps=8 format=3 uid="uid://bo17rp7drltup"]
 
 [ext_resource type="PackedScene" uid="uid://cjp5dnv0gn54k" path="res://assets/scenes/HUD.tscn" id="1_a4ftf"]
 [ext_resource type="PackedScene" uid="uid://b55ix48mkgo24" path="res://assets/scenes/Player.tscn" id="1_uxm6a"]
 [ext_resource type="PackedScene" uid="uid://2urmufhnfos8" path="res://assets/scenes/Tilesets/TreasureTileset.tscn" id="2_i0y4h"]
 [ext_resource type="PackedScene" uid="uid://c0pblbrtn432n" path="res://assets/scenes/Tilesets/ForestTileset.tscn" id="3_xex52"]
 [ext_resource type="PackedScene" uid="uid://dutt72r205wij" path="res://assets/scenes/Backgrounds/Level1Background.tscn" id="4_ouv5u"]
+[ext_resource type="PackedScene" uid="uid://cngjvvg11mv8o" path="res://assets/scenes/Tilesets/EnemyTileset.tscn" id="5_i6o3q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_db0oc"]
 size = Vector2(4175.88, 492)
@@ -18,13 +19,17 @@ position = Vector2(14, 0)
 
 [node name="Fallzone" type="Area2D" parent="."]
 position = Vector2(263, -38)
+collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Fallzone"]
 position = Vector2(1468.06, 530)
 shape = SubResource("RectangleShape2D_db0oc")
 
-[node name="TileMap" parent="." instance=ExtResource("2_i0y4h")]
+[node name="TreasureTileMap" parent="." instance=ExtResource("2_i0y4h")]
 layer_0/tile_data = PackedInt32Array(-458729, 1, 65536, -458727, 1, 65536, -458725, 1, 65536, -458737, 1, 131072, -458716, 1, 196608, -917500, 1, 65536, -917498, 1, 65536, -917496, 1, 65536)
+
+[node name="EnemyTileMap" parent="." instance=ExtResource("5_i6o3q")]
+layer_0/tile_data = PackedInt32Array(15, 0, 65536, -327674, 0, 65536)
 
 [node name="SampleForestTileMap" parent="." instance=ExtResource("3_xex52")]
 layer_0/tile_data = PackedInt32Array(-65536, 327681, 1, -65535, 393217, 1, -65534, 458753, 1, -65533, 327681, 1, -65532, 393217, 1, -65531, 458753, 1, -65526, 327681, 1, -65525, 393217, 1, -65524, 458753, 1, -65523, 327681, 1, -65522, 393217, 1, -65521, 458753, 1, -65520, 327681, 1, -65519, 393217, 1, -65518, 589825, 1, -65517, 655361, 1, -65516, 720897, 1, -65515, 458753, 1, -65505, 655361, 1, -65504, 720897, 1, -65503, 458753, 1, -65502, 327681, 1, -65501, 393217, 1, -65500, 458753, 1, -65509, 589825, 1, -65508, 655361, 1, -65507, 720897, 1, -65506, 589825, 1)
@@ -38,3 +43,11 @@ scroll_base_offset = Vector2(0, 100)
 [connection signal="ChangeCoins" from="Player" to="HUD" method="OnPlayerChangedCoins"]
 [connection signal="ChangeOrbs" from="Player" to="HUD" method="OnPlayerChangedOrbs"]
 [connection signal="body_entered" from="Fallzone" to="Player" method="OnFallzoneBodyEntered"]
+[connection signal="body_entered" from="TreasureTileMap/OrbTreasure" to="TreasureTileMap/OrbTreasure" method="OnBodyEntered"]
+[connection signal="body_entered" from="TreasureTileMap/Treasure" to="TreasureTileMap/Treasure" method="OnBodyEntered"]
+[connection signal="body_entered" from="TreasureTileMap/@Treasure@81315" to="TreasureTileMap/@Treasure@81315" method="OnBodyEntered"]
+[connection signal="body_entered" from="TreasureTileMap/@Treasure@81316" to="TreasureTileMap/@Treasure@81316" method="OnBodyEntered"]
+[connection signal="body_entered" from="TreasureTileMap/JewelTreasure" to="TreasureTileMap/JewelTreasure" method="OnBodyEntered"]
+[connection signal="body_entered" from="TreasureTileMap/@Treasure@81317" to="TreasureTileMap/@Treasure@81317" method="OnBodyEntered"]
+[connection signal="body_entered" from="TreasureTileMap/@Treasure@81318" to="TreasureTileMap/@Treasure@81318" method="OnBodyEntered"]
+[connection signal="body_entered" from="TreasureTileMap/@Treasure@81319" to="TreasureTileMap/@Treasure@81319" method="OnBodyEntered"]

@@ -155,6 +155,7 @@ _data = {
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 63
+floor_constant_speed = true
 script = ExtResource("1_utqeo")
 
 [node name="PlayerCollision2D" type="CollisionShape2D" parent="."]
