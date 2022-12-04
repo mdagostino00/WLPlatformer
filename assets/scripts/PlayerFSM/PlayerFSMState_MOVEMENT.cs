@@ -68,6 +68,7 @@ namespace WarioLandPlatformer.PlayerFSM
         {
             Vector2 velocity = _player.Velocity;
 
+
             // Add the gravity.
             if (!_player.IsOnFloor())
                 velocity.y += _player.gravity * (float)delta;

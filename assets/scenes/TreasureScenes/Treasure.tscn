@@ -59,6 +59,7 @@ collision_layer = 0
 script = ExtResource("1_q1dkf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -1
 texture_filter = 1
 frames = SubResource("SpriteFrames_v5odu")
 playing = true

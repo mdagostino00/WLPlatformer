@@ -68,6 +68,7 @@ script = ExtResource("1_wc8aq")
 TREASURE_VALUE = 2000
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
 position = Vector2(0, -1)
 texture = ExtResource("2_w174e")
 hframes = 16

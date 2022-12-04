@@ -13,5 +13,10 @@ namespace WarioLandPlatformer
         {
 
         }
+
+        void OnPlayerChangedCoins()
+        {
+
+        }
     }
 }

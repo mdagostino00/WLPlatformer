@@ -4,7 +4,6 @@ using System;
 public partial class OrbTreasure : Treasure
 {
     public AnimationPlayer animationPlayer;
-    private bool dequeue = false;
 
     public override void _Ready()
     {
@@ -13,13 +12,15 @@ public partial class OrbTreasure : Treasure
         base._Ready();
     }
 
-    public override void OnBodyEntered(Node2D body)
+    public override void OnBodyEntered(Player body)
     {
         animationPlayer.Play("bounce");
+        player = body;  
     }
 
     public void OnAnimationPlayerAnimationFinished(string anim_name)
     {
+        player.AddOrb();
         this.QueueFree();
     }
 }

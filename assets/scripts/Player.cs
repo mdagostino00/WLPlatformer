@@ -5,21 +5,32 @@ using WarioLandPlatformer.PlayerFSM;
 
 public partial class Player : CharacterBody2D
 {
+	// Physics Variables
 	public const float SprintSpeed = 150.0f;
 	public const float MaxSpeed = 100.0f;
 	public const float JumpVelocity = -350.0f;
 	public const float Acceleration = 10.0f;
+    // Get the gravity from the project settings to be synced with RigidBody nodes.
+    public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
-    public AnimationPlayer _animationPlayer;
-    public PlayerFSM playerFSM = null;
+	// Composite Objects
+	public AnimationPlayer _animationPlayer;
+	public PlayerFSM playerFSM = null;
 	public PlayerObserver playerObserver = null;
-	public bool animationActable { get; set; }
 
-	// Get the gravity from the project settings to be synced with RigidBody nodes.
-	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	// Gameplay-related variables
+    public int coins { get; set; }
+	public int orbs { get; set; }	
+    public bool animationActable { get; set; }
 
-	// initialization for the player's finite state machine object
-	public Player()
+
+	// Signals
+	[Signal] public delegate void ChangeCoinsEventHandler(int coins);
+    [Signal] public delegate void ChangeOrbsEventHandler(int orbs);
+
+
+    // initialization for the player's finite state machine object
+    public Player()
 	{
 		// first, create a new instance of the FSM object
 		playerFSM = new PlayerFSM();
@@ -94,15 +105,30 @@ public partial class Player : CharacterBody2D
 		{
             playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
         }
-		//playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
 	}
+
+    public void AddOrb()
+    {
+        orbs += 1;
+		EmitSignal("ChangeOrbs", orbs);
+		GD.Print(orbs);
+    }
+
+    public void AddCoins(int coin)
+	{
+		coins += coin;
+		EmitSignal("ChangeCoins", coins);
+		GD.Print(coins);
+	}
+
+
 
     public void SetAnimationActable()
     {
 		animationActable = true;
     }
 
-	public void ActivateHitbox()
+    public void ActivateHitbox()
 	{
 
 	}

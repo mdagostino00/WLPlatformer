@@ -1,0 +1,76 @@
+[gd_scene load_steps=6 format=3 uid="uid://cjp5dnv0gn54k"]
+
+[ext_resource type="Texture2D" uid="uid://dnfr5twwqf0c0" path="res://assets/art/artworking/Kyrise's 16x16 RPG Icon Pack - V1.3/icons/16x16/coin_05d.png" id="1_mspl4"]
+[ext_resource type="Script" path="res://assets/scripts/HUD.cs" id="1_onyeh"]
+[ext_resource type="FontFile" uid="uid://bxvow3monr1tt" path="res://assets/fonts/Pixel Digivolve.otf" id="2_no1pn"]
+[ext_resource type="Texture2D" uid="uid://b4iuuhchukgsq" path="res://assets/art/artworking/Kyrise's 16x16 RPG Icon Pack - V1.3/icons/16x16/pearl_01a.png" id="3_lhsi5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bcjxc"]
+bg_color = Color(0, 0, 0, 0.301961)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_onyeh")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 295.0
+offset_bottom = 53.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bcjxc")
+
+[node name="coin_icon" type="TextureRect" parent="."]
+offset_left = 110.0
+offset_top = 10.0
+offset_right = 142.0
+offset_bottom = 42.0
+texture = ExtResource("1_mspl4")
+
+[node name="orb_icon" type="TextureRect" parent="."]
+offset_left = 9.0
+offset_top = 10.0
+offset_right = 41.0
+offset_bottom = 42.0
+texture = ExtResource("3_lhsi5")
+
+[node name="x" type="Label" parent="."]
+offset_left = 145.0
+offset_top = 1.0
+offset_right = 158.0
+offset_bottom = 58.0
+theme_override_fonts/font = ExtResource("2_no1pn")
+theme_override_font_sizes/font_size = 16
+text = "x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="x2" type="Label" parent="."]
+offset_left = 42.0
+offset_right = 55.0
+offset_bottom = 57.0
+theme_override_fonts/font = ExtResource("2_no1pn")
+theme_override_font_sizes/font_size = 16
+text = "x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Coins" type="Label" parent="."]
+offset_left = 162.0
+offset_top = 1.0
+offset_right = 305.0
+offset_bottom = 53.0
+theme_override_fonts/font = ExtResource("2_no1pn")
+theme_override_font_sizes/font_size = 20
+text = "123456789"
+vertical_alignment = 1
+
+[node name="Orbs" type="Label" parent="."]
+offset_left = 55.0
+offset_top = 1.0
+offset_right = 198.0
+offset_bottom = 53.0
+theme_override_fonts/font = ExtResource("2_no1pn")
+theme_override_font_sizes/font_size = 20
+text = "123"
+vertical_alignment = 1
