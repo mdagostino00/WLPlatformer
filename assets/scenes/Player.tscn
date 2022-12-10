@@ -1,10 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://b55ix48mkgo24"]
+[gd_scene load_steps=16 format=3 uid="uid://b55ix48mkgo24"]
 
 [ext_resource type="Script" path="res://assets/scripts/Player.cs" id="1_utqeo"]
 [ext_resource type="Texture2D" uid="uid://b0k5b164oxtcr" path="res://assets/art/penguin/penguin_full.png" id="6_bnbf2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21qm5"]
-size = Vector2(18, 23.25)
+size = Vector2(18, 20)
 
 [sub_resource type="Animation" id="Animation_n7ffm"]
 length = 0.001
@@ -43,11 +43,14 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.183333, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.2, 0.283333, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
 "method": &"ActivateHitbox"
+}, {
+"args": [],
+"method": &"DeactivateHitbox"
 }, {
 "args": [],
 "method": &"SetAnimationActable"
@@ -142,10 +145,28 @@ tracks/0/keys = {
 "values": [6, 7, 8, 9, 4, 5]
 }
 
+[sub_resource type="Animation" id="Animation_8n34i"]
+resource_name = "hitstun"
+length = 0.5
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSpriteSheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n6pbh"]
 _data = {
 "RESET": SubResource("Animation_n7ffm"),
 "attack": SubResource("Animation_aebl0"),
+"hitstun": SubResource("Animation_8n34i"),
 "idle": SubResource("Animation_onrrx"),
 "jumping_down": SubResource("Animation_clx7r"),
 "jumping_up": SubResource("Animation_mpjs0"),
@@ -153,13 +174,21 @@ _data = {
 "walking": SubResource("Animation_hqka8")
 }
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6b0x4"]
+blend_mode = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_llukw"]
+size = Vector2(29.5, 17)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_v12r5"]
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 63
 floor_constant_speed = true
 script = ExtResource("1_utqeo")
 
 [node name="PlayerCollision2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -11.625)
+position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_21qm5")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -189,5 +218,22 @@ vframes = 5
 libraries = {
 "": SubResource("AnimationLibrary_n6pbh")
 }
+
+[node name="PickaxeHitbox" type="Area2D" parent="."]
+collision_mask = 25
+
+[node name="PickaxeCollisionShape" type="CollisionShape2D" parent="PickaxeHitbox"]
+material = SubResource("CanvasItemMaterial_6b0x4")
+position = Vector2(25, -8)
+shape = SubResource("RectangleShape2D_llukw")
+disabled = true
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="KnockbackTimer" type="Timer" parent="."]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -10)
+range_item_cull_mask = 32
+texture = SubResource("NoiseTexture2D_v12r5")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAnimationPlayerAnimationFinished"]

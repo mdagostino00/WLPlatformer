@@ -17,16 +17,20 @@ public partial class Player : CharacterBody2D
 	public AnimationPlayer _animationPlayer;
 	public PlayerFSM playerFSM = null;
 	public PlayerObserver playerObserver = null;
+	public CollisionShape2D _pickHitbox;
+	public Sprite2D _animatedSprite;
 
 	// Gameplay-related variables
     public int coins { get; set; }
 	public int orbs { get; set; }	
     public bool animationActable { get; set; }
+	public bool inputActionable { get; set; }
 
 
 	// Signals
 	[Signal] public delegate void ChangeCoinsEventHandler(int coins);
     [Signal] public delegate void ChangeOrbsEventHandler(int orbs);
+    [Signal] public delegate void OnPlayerEnteredHiddenEventHandler(Player body);
 
 
     // initialization for the player's finite state machine object
@@ -38,15 +42,24 @@ public partial class Player : CharacterBody2D
 		// next, add all of our coded states into the FSM
 		playerFSM.Add(new PlayerFSMState_MOVEMENT(this));
         playerFSM.Add(new PlayerFSMState_ATTACK(this));
+        playerFSM.Add(new PlayerFSMState_HITSTUN(this));
 
-		playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
+        playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
 
 		playerObserver = new PlayerObserver();
     }
 
+	//-----------------Godot Engine Functions---------------------//
+
 	public override void _Ready()
 	{
         _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        _animatedSprite = GetNode<Sprite2D>("PlayerSpriteSheet");
+
+        _pickHitbox = (CollisionShape2D)GetNode<Area2D>("PickaxeHitbox").GetChild(0);
+        _pickHitbox.SetDeferred("Disabled", true);
+
+		inputActionable = true;
     }
 
 	public override void _Process(double delta)
@@ -60,9 +73,26 @@ public partial class Player : CharacterBody2D
         MoveAndSlide();
     }
 
-	public void SetAnimation(Vector2 velocity)
+    //-----------------Input Handling---------------------//
+
+    public Vector2 GetInputDirection()
 	{
-		var animatedSprite = GetNode<Sprite2D>("PlayerSpriteSheet");
+        Vector2 direction = Input.GetVector(
+			"move_left",
+			"move_right",
+			"move_up",
+			"move_down"
+			);
+		if (!inputActionable)
+		{
+			direction.x = 0;
+			direction.y = 0;
+		}
+		return direction;
+    }
+
+	public void SetAnimation(Vector2 velocity)
+	{ 
 		if (IsOnFloor() && velocity.x != 0)
 
         {
@@ -83,20 +113,75 @@ public partial class Player : CharacterBody2D
 
 		if (velocity.x != 0)
 		{
-			if (animatedSprite.FlipH = velocity.x < 0)
+			if (_animatedSprite.FlipH = velocity.x < 0)
 			{
-                animatedSprite.Offset = new Vector2(-32.0f , 0.0f);
+                _animatedSprite.Offset = new Vector2(-32.0f , 0.0f);
 			}else
 			{
-                animatedSprite.Offset = new Vector2(0.0f, 0.0f);
+                _animatedSprite.Offset = new Vector2(0.0f, 0.0f);
             }
         }
 	}
 
-	public void OnFallzoneBodyEntered(Player body)
+    //-----------------Called Functions in other scripts---------------------//
+
+    public void TriggerKnockback(Vector2 enemypos)
 	{
-        GetTree().ChangeSceneToPacked((PackedScene)ResourceLoader.Load("res://assets/scenes/Main.tscn"));
+        Vector2 velocity = new Vector2(200f, Player.JumpVelocity *.6f);
+        if (Position.x < enemypos.x)
+            velocity.x = -200f;
+        Velocity = velocity;
+
+        playerFSM.SetCurrentState(PlayerFSMStateType.HITSTUN);
+
+    }
+
+	public void TriggerBounceOffEnemy()
+	{
+		Velocity = new Vector2(Velocity.x, JumpVelocity * .8f);
 	}
+
+    public void AddOrb()
+    {
+        orbs += 1;
+        EmitSignal("ChangeOrbs", orbs);
+    }
+
+    public void AddCoins(int coin)
+    {
+        coins += coin;
+        EmitSignal("ChangeCoins", coins);
+    }
+
+    public void SetAnimationActable()
+    {
+        animationActable = true;
+    }
+
+    public void ActivateHitbox()
+    {
+        Vector2 hitboxPos = new Vector2(25, -8);
+        if (_animatedSprite.FlipH)
+        {
+            hitboxPos.x = -25;
+        }
+
+        _pickHitbox.Position = hitboxPos;
+        _pickHitbox.Disabled = false;
+    }
+
+    public void DeactivateHitbox()
+    {
+        _pickHitbox.Disabled = true;
+    }
+
+    //-----------------Signal Handling Functions---------------------//
+
+
+    public void OnFallzoneBodyEntered(Player body)
+	{
+        GetTree().ChangeSceneToFile("res://assets/scenes/Main.tscn");
+    }
 
 
 	public void OnAnimationPlayerAnimationFinished(string anim_name)
@@ -104,32 +189,9 @@ public partial class Player : CharacterBody2D
 		if (anim_name == "attack")
 		{
             playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
+        }else if (anim_name == "hitstun")
+		{
+            playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
         }
-	}
-
-    public void AddOrb()
-    {
-        orbs += 1;
-		EmitSignal("ChangeOrbs", orbs);
-		GD.Print(orbs);
-    }
-
-    public void AddCoins(int coin)
-	{
-		coins += coin;
-		EmitSignal("ChangeCoins", coins);
-		GD.Print(coins);
-	}
-
-
-
-    public void SetAnimationActable()
-    {
-		animationActable = true;
-    }
-
-    public void ActivateHitbox()
-	{
-
 	}
 }

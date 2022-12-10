@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwmodnqar0ddl"]
+
+[ext_resource type="PackedScene" uid="uid://duo082jldr2u1" path="res://assets/scenes/EnemyScenes/Enemy.tscn" id="1_ldpy6"]
+[ext_resource type="Script" path="res://assets/scripts/StrongEnemy.cs" id="2_1flxb"]
+
+[node name="StrongEnemy" instance=ExtResource("1_ldpy6")]
+script = ExtResource("2_1flxb")
+detectCliffs = false

@@ -10,5 +10,6 @@ namespace WarioLandPlatformer.PlayerFSM
     {
         MOVEMENT = 0,
         ATTACK,
+        HITSTUN,
     }
 }

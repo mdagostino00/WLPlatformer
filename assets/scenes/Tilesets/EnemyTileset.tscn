@@ -1,9 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cngjvvg11mv8o"]
+[gd_scene load_steps=5 format=3 uid="uid://cngjvvg11mv8o"]
 
 [ext_resource type="PackedScene" uid="uid://duo082jldr2u1" path="res://assets/scenes/EnemyScenes/Enemy.tscn" id="1_vpl7f"]
+[ext_resource type="PackedScene" uid="uid://bwmodnqar0ddl" path="res://assets/scenes/EnemyScenes/StrongEnemy.tscn" id="2_v5n8r"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_d43de"]
+resource_name = "Enemy"
 scenes/1/scene = ExtResource("1_vpl7f")
+scenes/2/scene = ExtResource("2_v5n8r")
+scenes/2/display_placeholder = ExtResource("2_v5n8r")
 
 [sub_resource type="TileSet" id="TileSet_nqot4"]
 sources/0 = SubResource("TileSetScenesCollectionSource_d43de")

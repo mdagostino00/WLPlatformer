@@ -68,6 +68,12 @@ attack={
 
 [layer_names]
 
+2d_render/layer_1="player"
+2d_render/layer_2="ground"
+2d_render/layer_3="enemy"
+2d_render/layer_4="item"
+2d_render/layer_5="projectile"
+2d_render/layer_6="hiddenwall"
 2d_physics/layer_1="player"
 2d_physics/layer_2="platform"
 2d_physics/layer_3="fallzone"

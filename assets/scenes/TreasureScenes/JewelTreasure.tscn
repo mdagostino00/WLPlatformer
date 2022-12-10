@@ -64,6 +64,8 @@ _data = {
 }
 
 [node name="JewelTreasure" type="Area2D"]
+z_index = 1
+collision_layer = 0
 script = ExtResource("1_wc8aq")
 TREASURE_VALUE = 2000
 

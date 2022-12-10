@@ -15,6 +15,7 @@ public partial class OrbTreasure : Treasure
     public override void OnBodyEntered(Player body)
     {
         animationPlayer.Play("bounce");
+        ZIndex = 2;
         SetCollisionMaskValue(1, false); //disable collision box
         player = body;
     }

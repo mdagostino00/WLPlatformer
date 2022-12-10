@@ -12,9 +12,4 @@ public partial class Treasure : Area2D
         this.QueueFree();
         //GD.Print(body.GetType());
     }
-
-    public virtual void OnBodyEntered(Node2D body)
-    {
-
-    }
 }

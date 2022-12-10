@@ -67,28 +67,21 @@ namespace WarioLandPlatformer.PlayerFSM
         public override void _PhysicsProcess(double delta)
         {
             Vector2 velocity = _player.Velocity;
-
-
             // Add the gravity.
             if (!_player.IsOnFloor())
                 velocity.y += _player.gravity * (float)delta;
 
             // Handle Jump.
-            if (Input.IsActionPressed("jump") && _player.IsOnFloor())
+            if (Input.IsActionPressed("jump") && _player.IsOnFloor() && _player.inputActionable)
                 velocity.y = Player.JumpVelocity;
             if (!Input.IsActionPressed("jump") && velocity.y < -50.0f && velocity.y > -250.0f)
                 velocity.y = -50.0f;
 
             // Get the input direction and handle the movement/deceleration.
             // As good practice, you should replace UI actions with custom gameplay actions.
-            Vector2 direction = Input.GetVector(
-                "move_left", 
-                "move_right", 
-                "move_up", 
-                "move_down"
-                );
+            Vector2 direction = _player.GetInputDirection();
 
-            if (Input.IsActionJustPressed("attack"))
+            if (Input.IsActionJustPressed("attack") && _player.inputActionable)
             {
                 _player.playerFSM.SetCurrentState(PlayerFSMStateType.ATTACK);
             }
@@ -128,8 +121,6 @@ namespace WarioLandPlatformer.PlayerFSM
             }
 
             _player.Velocity = velocity;
-            //_player.SetAnimation(_player.Velocity);
-            //base._PhysicsProcess(delta);
         }
     }
 }

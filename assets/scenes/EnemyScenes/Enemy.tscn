@@ -1,10 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://duo082jldr2u1"]
+[gd_scene load_steps=10 format=3 uid="uid://duo082jldr2u1"]
 
 [ext_resource type="Script" path="res://assets/scripts/Enemy.cs" id="1_68yit"]
 [ext_resource type="Texture2D" uid="uid://cx2noabog3pfi" path="res://assets/art/enemy/enemy_slime.png" id="2_tdd7f"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qp8m0"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fkqvq"]
+size = Vector2(20, 13)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hha7l"]
-size = Vector2(16, 15)
+size = Vector2(16, 12.5)
 
 [sub_resource type="Animation" id="Animation_5i6mq"]
 length = 0.001
@@ -64,14 +70,30 @@ _data = {
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 16
-collision_mask = 19
+collision_mask = 3
 script = ExtResource("1_68yit")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 33
+
+[node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_qp8m0")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -6.5)
+shape = SubResource("RectangleShape2D_fkqvq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6.75)
 shape = SubResource("RectangleShape2D_hha7l")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
 position = Vector2(0, -16)
 texture = ExtResource("2_tdd7f")
 vframes = 4
@@ -81,3 +103,13 @@ frame = 1
 libraries = {
 "": SubResource("AnimationLibrary_gn1bi")
 }
+
+[node name="FloorChecker" type="RayCast2D" parent="."]
+target_position = Vector2(0, 21)
+collision_mask = 2
+
+[connection signal="area_entered" from="Hurtbox" to="." method="OnHurtboxAreaEntered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="OnHurtboxBodyEntered"]
+[connection signal="area_entered" from="Hitbox" to="." method="OnHitboxAreaEntered"]
+[connection signal="body_entered" from="Hitbox" to="." method="OnHitboxBodyEntered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAnimationPlayerAnimationFinished"]

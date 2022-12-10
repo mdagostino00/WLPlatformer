@@ -64,6 +64,8 @@ _data = {
 }
 
 [node name="OrbTreasure" type="Area2D"]
+z_index = 1
+collision_layer = 0
 script = ExtResource("1_w4tdh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
