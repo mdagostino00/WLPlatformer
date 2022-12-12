@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjp5dnv0gn54k"]
+[gd_scene load_steps=8 format=3 uid="uid://cjp5dnv0gn54k"]
 
 [ext_resource type="Texture2D" uid="uid://dnfr5twwqf0c0" path="res://assets/art/artworking/Kyrise's 16x16 RPG Icon Pack - V1.3/icons/16x16/coin_05d.png" id="1_mspl4"]
 [ext_resource type="Script" path="res://assets/scripts/HUD.cs" id="1_onyeh"]
 [ext_resource type="FontFile" uid="uid://bxvow3monr1tt" path="res://assets/fonts/Pixel Digivolve.otf" id="2_no1pn"]
 [ext_resource type="Texture2D" uid="uid://b4iuuhchukgsq" path="res://assets/art/artworking/Kyrise's 16x16 RPG Icon Pack - V1.3/icons/16x16/pearl_01a.png" id="3_lhsi5"]
+[ext_resource type="Texture2D" uid="uid://hxvbopndnmdm" path="res://assets/art/artworking/Kyrise's 16x16 RPG Icon Pack - V1.3/icons/16x16/key_01d.png" id="5_6hcjb"]
+[ext_resource type="FontFile" uid="uid://k7kwywxi8qo0" path="res://assets/fonts/Pixel Digivolve Italic.otf" id="6_st44s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bcjxc"]
 bg_color = Color(0, 0, 0, 0.301961)
@@ -74,3 +76,52 @@ theme_override_fonts/font = ExtResource("2_no1pn")
 theme_override_font_sizes/font_size = 20
 text = "123"
 vertical_alignment = 1
+
+[node name="Key" type="TextureRect" parent="."]
+offset_left = 297.0
+offset_top = 6.0
+offset_right = 337.0
+offset_bottom = 46.0
+texture = ExtResource("5_6hcjb")
+
+[node name="EscapeTimer" type="Label" parent="."]
+offset_left = 4.0
+offset_top = -1.0
+offset_right = 1280.0
+offset_bottom = 722.0
+theme_override_colors/font_color = Color(1, 1, 0.337255, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("6_st44s")
+theme_override_font_sizes/font_size = 80
+text = "99:99"
+horizontal_alignment = 1
+
+[node name="YouWin" type="Panel" parent="."]
+offset_left = -15.0
+offset_top = -11.0
+offset_right = 1288.0
+offset_bottom = 729.0
+
+[node name="Label" type="Label" parent="YouWin"]
+offset_left = 211.0
+offset_top = 113.0
+offset_right = 1111.0
+offset_bottom = 352.0
+theme_override_fonts/font = ExtResource("2_no1pn")
+theme_override_font_sizes/font_size = 200
+text = "You Win!"
+
+[node name="Button" type="Button" parent="YouWin"]
+process_mode = 3
+offset_left = 403.0
+offset_top = 389.0
+offset_right = 902.0
+offset_bottom = 493.0
+theme_override_colors/font_pressed_color = Color(0.92549, 0, 0.192157, 1)
+theme_override_colors/font_hover_color = Color(0.956863, 0.768627, 0, 1)
+theme_override_fonts/font = ExtResource("2_no1pn")
+theme_override_font_sizes/font_size = 60
+text = "Play Again"
+
+[connection signal="button_up" from="YouWin/Button" to="." method="OnPlayAgainButtonUp"]

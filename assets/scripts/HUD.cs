@@ -5,6 +5,9 @@ public partial class HUD : CanvasLayer
 {
     Label coins;
     Label orbs;
+    Label escapetimer;
+    Panel youwin;
+    TextureRect key;
     public int _coin = 0;
     public int _orb = 0;
 
@@ -12,9 +15,15 @@ public partial class HUD : CanvasLayer
     {
         coins = GetNode<Label>("Coins");
         orbs = GetNode<Label>("Orbs");
+        escapetimer = GetNode<Label>("EscapeTimer");
+        key = GetNode<TextureRect>("Key");
+        youwin = GetNode<Panel>("YouWin");
 
         coins.Text = GD.Str(_coin);
         orbs.Text = GD.Str(_orb);
+        escapetimer.Visible = false;
+        key.Visible = false;
+        youwin.Visible = false;
     }
 
     void OnPlayerChangedCoins(int coincount)
@@ -25,5 +34,23 @@ public partial class HUD : CanvasLayer
     void OnPlayerChangedOrbs(int orbcount)
     {
         orbs.Text = GD.Str(orbcount);
+    }
+
+    void OnPlayerKeyObtained()
+    {
+        escapetimer.Visible = true;
+        key.Visible = true;
+    }
+
+    void OnLevelEnd()
+    {
+        youwin.Visible = true;
+        GetTree().Paused = true;
+    }
+
+    void OnPlayAgainButtonUp()
+    {
+        GetTree().ChangeSceneToFile("res://assets//scenes//Main.tscn");
+        GetTree().Paused = false;
     }
 }

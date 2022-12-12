@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=3 uid="uid://o6oibgdvsaot"]
+
+[ext_resource type="Script" path="res://assets/scripts/TreasureScripts/Key.cs" id="1_rn7kg"]
+[ext_resource type="Texture2D" uid="uid://hxvbopndnmdm" path="res://assets/art/artworking/Kyrise's 16x16 RPG Icon Pack - V1.3/icons/16x16/key_01d.png" id="1_wgya6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c1ykt"]
+size = Vector2(12, 16)
+
+[sub_resource type="Animation" id="Animation_34fwc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6h37m"]
+resource_name = "bounce"
+length = 3.0
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.516667, 1, 1.5, 2, 2.31667, 2.53333, 2.75, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -20), Vector2(0, -30), Vector2(0, -35), Vector2(0, -37), Vector2(0, -35), Vector2(0, -33), Vector2(0, -35), Vector2(0, -42)]
+}
+
+[sub_resource type="Animation" id="Animation_amtb1"]
+resource_name = "idle"
+length = 1.33333
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.666667, 1, 1.33333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -4), Vector2(0, 0), Vector2(0, 4), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ncipo"]
+_data = {
+"RESET": SubResource("Animation_34fwc"),
+"bounce": SubResource("Animation_6h37m"),
+"idle": SubResource("Animation_amtb1")
+}
+
+[node name="Key" type="Area2D"]
+process_mode = 3
+script = ExtResource("1_rn7kg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wgya6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_c1ykt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_ncipo")
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAnimationPlayerAnimationFinished"]
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
