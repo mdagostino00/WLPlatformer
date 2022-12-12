@@ -4,3 +4,9 @@
 # Godot specific ignores
 .import/
 /build/
+
+# other general ignores
+rcedit/
+/*.cfg
+releases/
+
