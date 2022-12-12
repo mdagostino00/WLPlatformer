@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dcj461eubrr4y"]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://assets/scripts/TreasureScripts/JewelTreasure.cs" id="1_wc8aq"]
 [ext_resource type="Texture2D" uid="uid://b1ok8l2k1uiyn" path="res://assets/art/artworking/Kyrise's 16x16 RPG Icon Pack - V1.3/spritesheet/spritesheet_16x16.png" id="2_w174e"]
+[ext_resource type="AudioStream" uid="uid://cu8hlmducfkac" path="res://assets/sounds/sound effects/Fruit collect 1.wav" id="3_p8y7g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m32v2"]
 size = Vector2(18, 18)
@@ -84,6 +85,10 @@ shape = SubResource("RectangleShape2D_m32v2")
 libraries = {
 "": SubResource("AnimationLibrary_1y7rj")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_p8y7g")
+max_polyphony = 8
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAnimationPlayerAnimationFinished"]

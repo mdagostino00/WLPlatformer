@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://6ai8sixx8c1x"]
+
+[ext_resource type="Script" path="res://assets/scripts/LevelTimer.cs" id="1_dv5oq"]
+
+[node name="LevelTimer" type="Timer"]
+script = ExtResource("1_dv5oq")
+Time = 90
+
+[connection signal="timeout" from="." to="." method="OnTimerTimeout"]

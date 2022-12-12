@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ckj0eyylwfbpo"
+path="res://.godot/imported/Off Into The World.wav-fd1944a03646885dfcc71c5c7a6c2bb2.sample"
+
+[deps]
+
+source_file="res://assets/sounds/music/Off Into The World.wav"
+dest_files=["res://.godot/imported/Off Into The World.wav-fd1944a03646885dfcc71c5c7a6c2bb2.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

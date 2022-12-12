@@ -18,10 +18,13 @@ public partial class JewelTreasure : Treasure
         ZIndex = 2;
         SetCollisionMaskValue(1, false); //disable collision box
         player = body;
+        body.AddCoins(TREASURE_VALUE);
+
+        sfx.Play();
     }
 
     public void OnAnimationPlayerAnimationFinished(string anim_name)
     {
-        base.OnBodyEntered(player);
+        this.QueueFree();
     }
 }

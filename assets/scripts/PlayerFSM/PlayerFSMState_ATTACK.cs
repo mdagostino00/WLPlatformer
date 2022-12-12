@@ -30,9 +30,6 @@ namespace WarioLandPlatformer.PlayerFSM
 
         public override void _Process(double delta)
         {
-            //_player.SetAnimationActable();
-            //_player._animationPlayer.Play("attack");
-
             if (_player.animationActable == false)
             {
                 return;
@@ -50,15 +47,6 @@ namespace WarioLandPlatformer.PlayerFSM
                 _player.playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
                 return;
             }
-
-            /*
-            if (_player.animationActable == true && Input.IsActionJustPressed("attack"))
-            {                
-                _player.playerFSM.SetCurrentState(PlayerFSMStateType.ATTACK);
-                //Enter();
-
-            }
-            */
             base._Process(delta);
         }
 

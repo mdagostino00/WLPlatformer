@@ -73,7 +73,10 @@ namespace WarioLandPlatformer.PlayerFSM
 
             // Handle Jump.
             if (Input.IsActionPressed("jump") && _player.IsOnFloor() && _player.inputActionable)
+            {
                 velocity.y = Player.JumpVelocity;
+                _player._jumpsfx.Play();
+            }
             if (!Input.IsActionPressed("jump") && velocity.y < -50.0f && velocity.y > -250.0f)
                 velocity.y = -50.0f;
 

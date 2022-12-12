@@ -7,6 +7,7 @@ public partial class HUD : CanvasLayer
     Label orbs;
     Label escapetimer;
     Panel youwin;
+    Panel youlose;
     TextureRect key;
     public int _coin = 0;
     public int _orb = 0;
@@ -18,12 +19,15 @@ public partial class HUD : CanvasLayer
         escapetimer = GetNode<Label>("EscapeTimer");
         key = GetNode<TextureRect>("Key");
         youwin = GetNode<Panel>("YouWin");
+        youlose = GetNode<Panel>("YouLose");
 
+        this.Visible = true;
         coins.Text = GD.Str(_coin);
         orbs.Text = GD.Str(_orb);
         escapetimer.Visible = false;
         key.Visible = false;
         youwin.Visible = false;
+        youlose.Visible = false;
     }
 
     void OnPlayerChangedCoins(int coincount)
@@ -45,6 +49,17 @@ public partial class HUD : CanvasLayer
     void OnLevelEnd()
     {
         youwin.Visible = true;
+        GetTree().Paused = true;
+    }
+
+    void OnLevelTimerUpdate(string timer)
+    {
+        escapetimer.Text = GD.Str(timer);
+    }
+
+    void OnLevelTimerYouLose()
+    {
+        youlose.Visible = true;
         GetTree().Paused = true;
     }
 

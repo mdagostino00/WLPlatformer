@@ -14,6 +14,7 @@ public partial class Enemy : CharacterBody2D
 	protected RectangleShape2D _hurtboxShape;
 	protected RayCast2D _rayCast;
 	protected Area2D _hitbox;
+	protected AudioStreamPlayer2D _deathsfx;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -25,6 +26,7 @@ public partial class Enemy : CharacterBody2D
         _hurtboxShape = (RectangleShape2D)GetNode<CollisionShape2D>("Hurtbox/HurtboxShape").Shape;
 		_hitbox = GetNode<Area2D>("Hitbox");
 
+		_deathsfx = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
 		_rayCast = GetNode<RayCast2D>("FloorChecker");
 
 		Vector2 rayCastVector = new Vector2(_hurtboxShape.Size.x * direction, 0);
@@ -89,6 +91,7 @@ public partial class Enemy : CharacterBody2D
         _hitbox.SetCollisionLayerValue(5, false);
         _hitbox.SetCollisionMaskValue(1, false);
 
+		_deathsfx.Play();
         _animationPlayer.Play("kill");
         SPEED = 0;
     }
@@ -102,7 +105,8 @@ public partial class Enemy : CharacterBody2D
         _hitbox.SetCollisionLayerValue(5, false);
         _hitbox.SetCollisionMaskValue(1, false);
 
-		body.TriggerBounceOffEnemy();
+        _deathsfx.Play();
+        body.TriggerBounceOffEnemy();
         _animationPlayer.Play("kill");
 		SPEED = 0;
 	}
@@ -118,8 +122,9 @@ public partial class Enemy : CharacterBody2D
 
 	}
 
-    public void OnAnimationPlayerAnimationFinished(string anim_name)
+    public async void OnAnimationPlayerAnimationFinished(string anim_name)
 	{
+		await ToSignal(_deathsfx, "finished");
 		this.QueueFree();
 	}
 }

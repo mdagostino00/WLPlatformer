@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://d0ai6njaee2oq"]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://assets/scripts/TreasureScripts/Treasure.cs" id="1_q1dkf"]
 [ext_resource type="Texture2D" uid="uid://grg2clbcqghr" path="res://assets/art/peaceful_nightfield/rotating_coin.png" id="2_1c4qr"]
+[ext_resource type="AudioStream" uid="uid://cu8hlmducfkac" path="res://assets/sounds/sound effects/Fruit collect 1.wav" id="3_7yubj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w05ty"]
 atlas = ExtResource("2_1c4qr")
@@ -58,6 +59,7 @@ size = Vector2(10, 10)
 z_index = 1
 collision_layer = 0
 script = ExtResource("1_q1dkf")
+TREASURE_VALUE = 100
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = -1
@@ -67,5 +69,9 @@ playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_wy8st")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_7yubj")
+max_polyphony = 8
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]

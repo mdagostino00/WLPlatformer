@@ -19,8 +19,10 @@ public partial class Player : CharacterBody2D
 	public PlayerObserver playerObserver = null;
 	public CollisionShape2D _pickHitbox;
 	public Sprite2D _animatedSprite;
+    public AudioStreamPlayer2D _hitstunsfx;
+    public AudioStreamPlayer2D _jumpsfx;
 
-	// Gameplay-related variables
+    // Gameplay-related variables
     public int coins { get; set; }
 	public int orbs { get; set; }	
     public bool animationActable { get; set; }
@@ -59,7 +61,10 @@ public partial class Player : CharacterBody2D
         _pickHitbox = (CollisionShape2D)GetNode<Area2D>("PickaxeHitbox").GetChild(0);
         _pickHitbox.SetDeferred("Disabled", true);
 
-		inputActionable = true;
+        _hitstunsfx = GetNode<AudioStreamPlayer2D>("HitstunSFX");
+        _jumpsfx = GetNode<AudioStreamPlayer2D>("JumpSFX");
+
+        inputActionable = true;
     }
 
 	public override void _Process(double delta)
@@ -131,6 +136,7 @@ public partial class Player : CharacterBody2D
         if (Position.x < enemypos.x)
             velocity.x = -200f;
         Velocity = velocity;
+        _hitstunsfx.Play();
 
         playerFSM.SetCurrentState(PlayerFSMStateType.HITSTUN);
 
@@ -138,6 +144,7 @@ public partial class Player : CharacterBody2D
 
 	public void TriggerBounceOffEnemy()
 	{
+        _jumpsfx.Play();
 		Velocity = new Vector2(Velocity.x, JumpVelocity * .8f);
 	}
 

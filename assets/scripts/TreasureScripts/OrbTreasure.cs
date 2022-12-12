@@ -18,6 +18,8 @@ public partial class OrbTreasure : Treasure
         ZIndex = 2;
         SetCollisionMaskValue(1, false); //disable collision box
         player = body;
+
+        sfx.Play();
     }
 
     public void OnAnimationPlayerAnimationFinished(string anim_name)

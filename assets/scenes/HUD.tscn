@@ -15,6 +15,7 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [node name="HUD" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_onyeh")
 
 [node name="Panel" type="Panel" parent="."]
@@ -102,8 +103,11 @@ offset_left = -15.0
 offset_top = -11.0
 offset_right = 1288.0
 offset_bottom = 729.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="YouWin"]
+layout_mode = 0
 offset_left = 211.0
 offset_top = 113.0
 offset_right = 1111.0
@@ -114,6 +118,38 @@ text = "You Win!"
 
 [node name="Button" type="Button" parent="YouWin"]
 process_mode = 3
+layout_mode = 0
+offset_left = 403.0
+offset_top = 389.0
+offset_right = 902.0
+offset_bottom = 493.0
+theme_override_colors/font_pressed_color = Color(0.92549, 0, 0.192157, 1)
+theme_override_colors/font_hover_color = Color(0.956863, 0.768627, 0, 1)
+theme_override_fonts/font = ExtResource("2_no1pn")
+theme_override_font_sizes/font_size = 60
+text = "Play Again"
+
+[node name="YouLose" type="Panel" parent="."]
+offset_left = -15.0
+offset_top = -11.0
+offset_right = 1288.0
+offset_bottom = 729.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="YouLose"]
+layout_mode = 1
+offset_left = 187.0
+offset_top = 114.0
+offset_right = 1184.0
+offset_bottom = 353.0
+theme_override_fonts/font = ExtResource("2_no1pn")
+theme_override_font_sizes/font_size = 200
+text = "You LOSE"
+
+[node name="Button" type="Button" parent="YouLose"]
+process_mode = 3
+layout_mode = 1
 offset_left = 403.0
 offset_top = 389.0
 offset_right = 902.0
@@ -125,3 +161,4 @@ theme_override_font_sizes/font_size = 60
 text = "Play Again"
 
 [connection signal="button_up" from="YouWin/Button" to="." method="OnPlayAgainButtonUp"]
+[connection signal="button_up" from="YouLose/Button" to="." method="OnPlayAgainButtonUp"]
